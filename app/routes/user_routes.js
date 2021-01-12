@@ -28,8 +28,9 @@ const router = express.Router()
 // SIGN UP
 // POST /sign-up
 router.post('/sign-up', (req, res, next) => {
+const credentials = req.body.credentials
   // start a promise chain, so that any errors will pass to `handle`
-  Promise.resolve(req.body.credentials)
+  Promise.resolve(credentials)
     // reject any requests where `credentials.password` is not present, or where
     // the password is an empty string
     .then(credentials => {
@@ -40,11 +41,11 @@ router.post('/sign-up', (req, res, next) => {
       }
     })
     // generate a hash from the provided password, returning a promise
-    .then(() => bcrypt.hash(req.body.credentials.password, bcryptSaltRounds))
+    .then(() => bcrypt.hash(credentials.password, bcryptSaltRounds))
     .then(hash => {
       // return necessary params to create a user
       return {
-        email: req.body.credentials.email,
+        email: credentials.email,
         hashedPassword: hash
       }
     })
@@ -60,7 +61,7 @@ router.post('/sign-up', (req, res, next) => {
 // SIGN IN
 // POST /sign-in
 router.post('/sign-in', (req, res, next) => {
-  const pw = req.body.credentials.password
+  const password = req.body.credentials.password
   let user
 
   // find a user based on the email that was passed
@@ -74,7 +75,7 @@ router.post('/sign-in', (req, res, next) => {
       user = record
       // `bcrypt.compare` will return true if the result of hashing `pw`
       // is exactly equal to the hashed password stored in the DB
-      return bcrypt.compare(pw, user.hashedPassword)
+      return bcrypt.compare(password, user.hashedPassword)
     })
     .then(correctPassword => {
       // if the passwords matched
