@@ -85,8 +85,8 @@ const id = req.params.id
 // DESTROY
 // DELETE /players/
 router.delete('/players/:id', requireToken, (req, res, next) => {
-  const id = req.params.id
-  Player.findById(id)
+  Player.findById({
+    _id: req.params.id, owner: req.user._id})
     .then(handle404)
     .then(player =>  requireOwnership(req, player))
     .then(player => {
