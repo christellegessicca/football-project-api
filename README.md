@@ -6,8 +6,8 @@ wanted to do this project, or came up with this idea.
 ## Important Links
 
 - [Other Repo](https://github.com/christellegessicca/Football-project-client)
-- [Deployed API](https://christellegessicca.github.io/Football-project-client/)
-- [Deployed Client](https://github.com/christellegessicca/Football-project-client)
+- [Deployed API](https://fathomless-atoll-44992.herokuapp.com/)
+- [Deployed Client](https://christellegessicca.github.io/Football-project-client/)
 
 ## Planning Story
 
